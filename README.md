@@ -1,0 +1,1 @@
+# Adobe-Windows-10-11-full-uninstaller-
