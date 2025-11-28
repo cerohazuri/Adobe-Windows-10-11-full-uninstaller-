@@ -123,3 +123,51 @@ Es deinstalliert Adobe Creative Cloud vollständig, inklusive:
 ✔ Benutzerordner
 
 → Danach ist Windows so, als ob nie Adobe installiert war.
+
+🛠️ ZUSÄTZLICHE SOFORT-LÖSUNGEN
+Lösung 1: Safe Mode Löschung
+powershell
+# 1. PC im Abgesicherten Modus starten
+# 2. PowerShell als Admin öffnen
+# 3. Dies ausführen:
+& {
+    takeown /f "C:\Program Files (x86)\Common Files\Adobe" /r /d y
+    icacls "C:\Program Files (x86)\Common Files\Adobe" /grant administrators:F /t
+    Remove-Item "C:\Program Files (x86)\Common Files\Adobe" -Recurse -Force
+}
+Lösung 2: Einzelne Datei manuell löschen
+powershell
+# Für die spezifische DLL:
+$file = "C:\Program Files (x86)\Common Files\Adobe\CoreSync_x64.dll"
+takeown /f "$file"
+icacls "$file" /grant "%username%:F"
+del /f "$file"
+Lösung 3: Batch-Skript für hartnäckige Dateien
+batch
+@echo off
+echo Adobe Force Delete Tool
+takeown /f "C:\Program Files (x86)\Common Files\Adobe" /r /d y
+timeout /t 2
+icacls "C:\Program Files (x86)\Common Files\Adobe" /grant administrators:F /t
+timeout /t 2
+rmdir /s /q "C:\Program Files (x86)\Common Files\Adobe"
+echo Fertig!
+pause
+🎯 EMPFOHLENE VORGEWENSWEISE
+Für deinen spezifischen Fehler:
+
+Erweiterte Version ausführen:
+
+powershell
+.\AdobeCleanupAdvanced.ps1
+Falls immer noch Fehler:
+
+🔄 Computer neustarten
+
+🔄 Skript erneut ausführen
+
+Als letzte Lösung:
+
+🛡️ Abgesicherten Modus verwenden
+
+🛡️ Offiziellen Adobe Cleaner Tool nutzen
